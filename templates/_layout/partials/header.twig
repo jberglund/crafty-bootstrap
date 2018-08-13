@@ -1,0 +1,16 @@
+<header role="banner" class="c-header">
+	<a class="c-skip" href="#innhold">Hopp til innhold</a>
+	<nav class="c-nav" role="navigation">
+			<a class="c-header__logo" href="/">{{siteName}}</a>
+		{# 
+		<ul class="c-nav__list">
+			{% for item in globalNav.nav if globalNav is not null %}
+				{% set title = item.navTitle|length ? item.navTitle : item.navLink[0].title %}
+				<li class="c-nav__list-item">
+					<a href="{{item.navLink[0].url}}" class="c-nav__link">{{title}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		#}
+	</nav>
+</header>

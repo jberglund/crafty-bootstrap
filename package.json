@@ -1,0 +1,102 @@
+  {
+    "name": "Crafty",
+    "version": "1.0.0",
+    "description": "A Craft 3 Scaffold",
+    "main": "gulpfile.js",
+    "scripts": {
+      "dev": "NODE_ENV=development gulp --require babel-register --gulpfile gulp2",
+      "build": "NODE_ENV=production gulp build --require babel-register --gulpfile gulp2"
+    },
+    "author": "Jacob Berglund",
+    "license": "MIT",
+    "urls": {
+      "dev": "http://crafty.test",
+      "live": "crafty.jacobberglund.com"
+    },
+    "css": {
+      "src": "./src/css/",
+      "dest": "./web/assets/css",
+      "filename": "styles.css",
+      "fontface": "font-face.css",
+      "inline": "./templates/_inline/css/",
+      "critical": {
+        "filename": "critical.css",
+        "urls": [
+          {
+            "url": "/",
+            "template": "index"
+          }
+        ]
+      }
+    },
+    "js": {
+      "src": "src/js/",
+      "dest": "web/assets/js/",
+      "entry": "./main.js",
+      "output": "./bundle.js",
+      "inline": {
+        "path": "./templates/_inline/js/",
+        "src": [
+          "./node_modules/loadjs/dist/loadjs.js",
+          "./node_modules/fg-loadcss/src/loadCSS.js",
+          "./node_modules/fg-loadcss/src/cssrelpreload.js",
+          "./node_modules/fontfaceobserver/fontfaceobserver.js",
+          "./node_modules/lazysizes/lazysizes.js",
+          "./src/js/inline/fonts.js",
+          "./src/js/inline/register-service-worker.js"
+			]
+		}
+	},
+	"fonts": {
+		"src": "./src/fonts/",
+		"dest": "./web/assets/fonts/",
+		"glob": "*.{eot,ttf,woff,woff2}"
+	},
+	"svg": {
+		"src": "./src/svg/",
+		"dest": "./templates/_inline/svg/",
+		"output": "bundled.svg"
+	},
+	"devDependencies": {
+		"babel-core": "latest",
+		"babel-loader": "latest",
+		"babel-plugin-syntax-dynamic-import": "latest",
+		"babel-preset-es2015": "latest",
+		"babel-register": "latest",
+		"browser-sync": "latest",
+		"critical": "latest",
+		"cssnano": "latest",
+		"del": "latest",
+		"gulp": "github:gulpjs/gulp#4.0",
+		"gulp-load-plugins": "latest",
+		"gulp-newer": "latest",
+		"gulp-notify": "latest",
+		"gulp-plumber": "latest",
+		"gulp-postcss": "latest",
+		"gulp-rename": "latest",
+		"gulp-size": "latest",
+		"gulp-sourcemaps": "latest",
+		"gulp-svgmin": "latest",
+		"gulp-svgstore": "latest",
+		"gulp-uglify": "latest",
+		"postcss-cssnext": "latest",
+		"postcss-easy-import": "latest",
+		"postcss-reporter": "latest",
+		"postcss-url": "latest",
+		"pretty-hrtime": "latest",
+		"require-dir": "latest",
+		"rucksack-css": "latest",
+		"run-sequence": "latest",
+		"webpack": "latest",
+		"webpack-dev-middleware": "latest",
+		"webpack-hot-middleware": "latest"
+	},
+	"dependencies": {
+		"animejs": "latest",
+		"barba.js": "latest",
+		"fg-loadcss": "latest",
+		"fontfaceobserver": "latest",
+		"lazysizes": "latest",
+		"loadjs": "latest"
+	}
+}

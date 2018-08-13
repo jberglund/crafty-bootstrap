@@ -1,0 +1,10 @@
+{% extends "_entry/default" %}
+{% import '_macros/components' as components %}
+
+{% block content %}
+	<div class="entry-block">
+		{% block itemContent %}
+			{{parent()}}
+		{% endblock %}
+	</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{# 
+
+// lazyLoaded Image/bgImages, optimized with Imager and Focuspoint
+---------------------------------------------------------------------------
+https://nystudio107.com/blog/creating-optimized-images-in-craft-cms
+https://github.com/aelvan/Imager-Craft
+https://github.com/smcyr/Craft-FocusPoint
+for the bgImage intrinsic ratio classname creation check:
+https://github.com/inuitcss/inuitcss/blob/develop/objects/_objects.ratio.scss
+
+1. import marco in your template:
+  {% import '_macros/_lazyFocusImager' as LazyFocusImager %}
+
+2. set image to run through macro e.g.:
+  {% set image = block.image.first() %}
+
+3. set options in template, or pass without options for defaults:
+  {% set options = {
+    sizes: [                --> set responsive image widths created by imager for lazySizes
+      { width: 1024 },      --> defaults based on http://gs.statcounter.com/screen-resolution-stats
+      { width: 768 },
+    ],
+    allowUpscale: false,    --> set imager setting allowUpscale - default is false
+    alt: 'logo',            --> set image alt tag, you could also use a twig variable if alt tag is set in CP - default is false
+    background: false,      --> set to true for bgImage element - default is false
+    class: 'o-media',       --> class name of img/bg element - default is o-media
+    format: 'jpg',          --> forces output format to a specific type - default is jpg
+    interlace: true,        --> set imager setting interlace - default is true
+    lazy: true,             --> use lazySizes - default is true      
+    mode: 'crop',           --> set mode 'crop', 'fit', 'stretch', 'croponly', 'letterbox' - default is crop
+    openDiv: false,         --> won't close the bgImage div element, useful for sliders or if the bgImage contains other elements - default is false
+    position: '50% 50%',    --> position for bgImage / if a focusPoint for cropping is set, it will use it for positioning - default is false
+    quality: 80,            --> set image quality - default is 80
+    ratio: 16:9,            --> set image ratio for cropping and sets a intrinsic ratio classname for bgImages - default is false
+  } %}
+
+ 4. execute macro in template:
+  {{ macroLazyFocusImager.LazyFocusImager(image, options) }} 
+
+#}
+
+{# Macro #}
+{% macro LazyFocusImager(image,options) %}
+
+  {# Set Defaults #}
+  {% set defaults = {
+  sizes: [  
+    { width: 1920 },
+    { width: 1366 },
+    { width: 768 },
+    { width: 360 },
+  ],
+  allowUpscale: false,
+  alt: false,
+  background: false,
+  class: 'o-media',
+  format: 'jpg',
+  interlace: true,
+  lazy: true,
+  mode: 'crop',
+  openDiv: false,
+  position: false,
+  quality: 80,
+  ratio: false, 
+  } %}
+
+  {# Merge Attr with Defaults #}
+  {% set options = options ? defaults|merge(options) : defaults %}
+
+  {% if image %}
+
+  {# Set Ratio #}
+    {% if options.ratio %}
+      {% set ratio = options.ratio|split(':') %}
+      {% set base64Ratio = options.ratio|split(':') %}
+      {% set ratio = ratio|first/ratio|last %}
+    {% else %}
+      {% set imageSize = image.width ~ ':' ~ image.height %}
+      {% set base64Ratio = imageSize|split(':') %}
+      {% set ratio = '' %}
+    {% endif %}
+
+  {# Set Position #}
+    {% if options.position %}
+      {% set position = options.position %}
+    {% elseif image.focusPctX %}
+      {% set position = image.focusPctX ~ '% ' ~ image.focusPctY ~ '%' %}
+    {% else %}
+      {% set position = '50% 50%' %}
+    {% endif %}
+
+  {# Define global variables #}
+    {% set imageSettings = {
+      allowUpscale: options.allowUpscale,
+      format: options.format,
+      interlace: options.interlace,
+      jpegQuality: options.quality,
+      mode: options.mode,
+      position: position,
+      ratio: ratio,
+    } %}
+
+  {# Image #}
+    {% set images = craft.imager.transformImage(image, options.sizes, imageSettings) %}
+
+    {% if options.background %}
+      <div class="lazyload {{ options.class }} {{ options.ratio ? 'o-ratio  o-ratio--' ~ options.ratio|replace({":": "-"}) : '' }}"
+           style="background-image: url('{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}');background-position: {{ position|trim("'") }};"
+           data-bgset="{{ craft.imager.srcset(images) }}" 
+           data-sizes="auto">
+      {% if not options.openDiv %}
+      </div>
+      {% endif %}
+      {% elseif options.lazy %}
+        <img data-sizes="auto"
+              src="{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}"
+              data-srcset="{{ craft.imager.srcset(images) }}"
+              class="{{ options.class }} lazyload"
+              alt="{{ options.alt }}" />
+      {% else %}
+        <img sizes="auto"
+             src="{{ images|last.url }}"
+             srcset="{{ craft.imager.srcset(images) }}"
+             class="{{ options.class }}"  
+             alt="{{ options.alt }}">
+          
+
+    {% endif %}
+  {% endif %}
+	{% endmacro %}

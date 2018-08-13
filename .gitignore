@@ -1,0 +1,30 @@
+#
+# Crafty .gitignore
+#
+#
+
+
+# CRAFT
+.env.php
+.env.sh
+.env
+
+# Run composer install on server to install these
+/vendor
+
+# Keep the folders, but not the content
+/storage/*
+!/storage/.gitkeep
+
+/web/uploads/*
+!/web/uploads/.gitkeep
+
+
+# BUILD FILES
+/node_modules/*
+/npm-debug.log
+
+
+# MISC
+.DS_Store
+.tern-port

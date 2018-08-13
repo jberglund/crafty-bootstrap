@@ -1,0 +1,28 @@
+
+
+
+
+
+ .M"""bgd `7MMF' `YMM' .g8""8q.     .g8"""bgd `7MM"""YMM  `7MN.   `7MF'
+,MI    "Y   MM   .M' .dP'    `YM. .dP'     `M   MM    `7    MMN.    M  
+`MMb.       MM .d"   dM'      `MM dM'       `   MM   d      M YMb   M  
+  `YMMNq.   MMMMM.   MM        MM MM            MMmmMM      M  `MN. M  
+.     `MM   MM  VMA  MM.      ,MP MM.    `7MMF' MM   Y  ,   M   `MM.M  
+Mb     dM   MM   `MM.`Mb.    ,dP' `Mb.     MM   MM     ,M   M     YMM  
+P"Ybmmd"  .JMML.   MMb.`"bmmd"'     `"bmmmdPY .JMMmmmmMMM .JML.    YM  
+
+
+
+
+
+            Designet og kodet av dine venner i Skogen.
+         www.skogen.io | hei@skogen.io | (+47) 915 44 572
+
+
+const signature = {
+
+name: "Jacob Berglund", title: "Utvikler"
+
+telephone: "(+47) 915 44 572", www: "http://skogen.io"
+
+}

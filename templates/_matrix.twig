@@ -1,0 +1,16 @@
+{#  
+	--
+
+	Given a matrix with a block with the handle "blockNews", it'll load this template:
+	"_matrix/blockNews.twig" 
+
+	If that template does not exist it will load: 
+	"_matrix/default" 
+
+	--
+#}
+
+{% for block in matrix %}
+	{% include ["_matrix/" ~ block.type.handle, "_matrix/default"] %}
+{% endfor %}
+

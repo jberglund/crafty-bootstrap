@@ -1,0 +1,22 @@
+.c-skip{
+  background-color: var(--skip-bg, --color-bg);
+  color: var(--skip-fg, --color-fg);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1em;
+  z-index: 2000;
+  display: block;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: all 300ms ease;
+}
+
+.c-skip:focus{
+  transform: none;
+  outline: none;
+  pointer-events: all;
+}

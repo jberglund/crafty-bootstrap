@@ -1,0 +1,203 @@
+
+/* Helpers - these produce no output */
+/* These do */
+html {
+  box-sizing: border-box;
+}
+*, 
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  overflow-y: scroll;
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+figcaption,
+figure,
+main {
+  display: block;
+}
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+a:active,
+a:hover {
+  outline-width: 0;
+}
+b,
+strong {
+  font-weight: inherit;
+}
+b,
+strong {
+  font-weight: bolder;
+}
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+small {
+  font-size: 80%;
+}
+audio,
+video {
+  display: inline-block;
+}
+img {
+  border-style: none;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+textarea {
+  overflow: auto;
+}
+canvas {
+  display: inline-block;
+}
+address,
+h1, h2, h3, h4, h5, h6,
+blockquote, p, pre,
+dl, ol, ul,
+figure,
+hr,
+table,
+fieldset {
+  margin-bottom: 1em;
+}
+dd, ol, ul {
+  margin-left: 1em;
+}
+.o-wrapper {
+	max-width: var(--wrapper-max-width);
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.c-footer {
+	background-color: #f0f0f0;
+}
+.c-header { 
+}
+.c-nav{  }
+.c-nav__list, .c-nav__list-item {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.c-nav__list-item {
+	display: inline-block;
+}
+.c-nav__link {
+	padding: 0.5em;
+	border: none;
+	text-decoration: none;
+}
+.c-skip{
+  background-color: var(--skip-bg, --color-bg);
+  color: var(--skip-fg, --color-fg);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1em;
+  z-index: 2000;
+  display: block;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: all 300ms ease;
+}
+.c-skip:focus{
+  transform: none;
+  outline: none;
+  pointer-events: all;
+}
+:root{
+  --color-fg:   black;
+  --color-bg:   pink;
+
+  --skip-fg:    var(--color-fg);
+  --skip-bg:    var(--color-bg);
+
+  --text-body:  serif;
+  --text-alt:   sans-serif;
+
+  --wrapper-max-width: 1280px;
+}
+html{
+	font-size: calc(10.09302px + 0.93023vw);
+
+	background-color: var(--color-bg);
+}
+@media screen and (min-width: 1280px) {
+  html {
+    font-size: 22px;
+  }
+}
+@media screen and (max-width: 420px) {
+  html {
+    font-size: 14px;
+  }
+}
+a { color: currentColor; }
+
+
+
+/*# sourceMappingURL=styles.css.map */

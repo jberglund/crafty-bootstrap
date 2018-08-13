@@ -1,0 +1,25 @@
+# robots.txt for {{ siteUrl }}
+
+
+{% switch craft.config.craftEnv %}
+
+{% case "production" %}
+# Production - don't allow web crawlers to index Craft
+User-agent: *
+Disallow: /cpresources/
+Disallow: /vendor/
+Disallow: /.env
+
+{% case "staging" %}
+# Staging - disallow all
+User-agent: *
+Disallow: /
+
+{% default %}
+# Default - don't allow web crawlers to index Craft
+User-agent: *
+Disallow: /cpresources/
+Disallow: /vendor/
+Disallow: /.env
+
+{% endswitch %}

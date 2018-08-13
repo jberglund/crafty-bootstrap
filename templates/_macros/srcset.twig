@@ -1,0 +1,70 @@
+{% macro srcset(image, options) %}
+{% set defaults = {
+sizes: [  
+{ width: 1920 },
+{ width: 1366 },
+{ width: 768 },
+{ width: 360 },
+],
+allowUpscale: false,
+alt: false,
+background: false,
+class: 'o-media',
+format: 'jpg',
+interlace: true,
+lazy: true,
+mode: 'crop',
+quality: 80,
+position: false,
+ratio: false, 
+} %}
+
+{% set options = options ? defaults|merge(options) : defaults %}
+
+{# setup #}
+{%- set srcset = [] -%}
+
+
+{% if options.ratio %}
+	{% set ratio = options.ratio|split(':') %}
+	{% set ratio = ratio|first/ratio|last %}
+{% else %}
+	{% set imageSize = image.width ~ ':' ~ image.height %}
+	{% set ratio = '' %}
+{% endif %}
+
+{% set imageSettings = {
+format: options.format,
+interlace: options.interlace,
+quality: options.quality,
+mode: options.mode,
+position: image.focalPoint
+} %}
+
+{# if output width is smaller than or equal to the original image width #}
+{%- for output in options.sizes -%}
+{%- if output.width <= image.width -%}
+{% if options.ratio %}
+	{% set transform = imageSettings|merge({ width: output.width, height: output.width * ratio }) %}
+{% else %}
+	{% set transform = { width: output.width } %}
+{% endif %}
+{%- set srcset = srcset | merge([image.url(transform) ~ ' ' ~ output.width ~ 'w']) -%}
+{%- endif -%}
+{%- endfor -%}
+
+{# output srcset #}
+{% if options.lazy %}
+	<img 
+	data-sizes="auto"
+	{% if craft.svgplaceholder.generate() is defined %}
+	src="{{craft.svgplaceholder.generate({ height: image.height * ratio, width: image.width }) }}"
+	{% endif %}
+	data-srcset="{{- srcset | join(', ') -}}"
+	class="{{options.class}} lazyload"
+	alt="{{options.alt}}" 
+	/>
+{% else %}
+	{{- srcset | join(', ') -}}
+{% endif %}
+{% endmacro %}

@@ -1,0 +1,6 @@
+@font-face {
+	/* Rucksack generates font-face for us. */
+  font-family: 'My Font';
+  font-path: '{{ baseUrl }}/path/to/font/file';
+	font-display: swap;
+}

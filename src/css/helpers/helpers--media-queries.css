@@ -1,0 +1,12 @@
+@custom-media --for-phone-only (width < 600px);
+
+@custom-media --for-portrait-tablet-and-up (width >= 600px);
+@custom-media --for-portrait-tablet-only (width >= 600px) and (width < 900px); 
+
+@custom-media --for-landscape-tablet-and-up (width >= 900px);
+@custom-media --for-landscape-tablet-only (width >= 900px) and (width < 1200px);
+
+@custom-media --for-desktop-and-up (width >= 1200px);
+@custom-media --for-desktop-only (width >= 1200px) and (width < 1800px);
+
+@custom-media --for-big-desktop-and-up (width >= 1800px);

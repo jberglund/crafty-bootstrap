@@ -1,0 +1,78 @@
+{% set staticAssetsVersion = craft.app.config.general.custom.staticAssetsVersion %}
+{% set baseUrl = craft.app.config.general.custom.baseUrl %}
+
+<!DOCTYPE html>
+
+<html lang="{{ craft.app.language |slice(0,2) }}" prefix="og:http://ogp.me/ns# fb:http://ogp.me/ns/fb#">
+		<head>
+			{% block head %}
+				<meta charset="utf-8">
+				<link type="text/plain" rel="author" href="{{baseUrl}}humans.txt" />
+				<meta name="viewport" content="width=device-width,minimum-scale=1">
+
+				<link rel="home" href="{{ siteUrl }}" />
+				<link rel="dns-prefetch" href="{{ baseUrl }}">
+				<link rel="preconnect" href="{{ baseUrl }}" crossorigin>
+
+
+				<script>
+					{% if craft.app.config.general.devMode != true %}
+					{{ source("_inline/js/register-service-worker.min.js") }}
+					{% endif %}
+					{{ source("_inline/js/loadjs.min.js") }}
+				</script>
+
+
+				{# Adding downloadable assets first makes things render faster #}
+
+				{# Critical CSS #}
+				<style>{{ source("_inline/css/critical.css", ignore_missing = true) }}</style>
+
+
+				{# Inline font-face. If it's in the CSS file we'll get FOUT. #}
+				<style>{{ source("_inline/css/font-face.css", ignore_missing = true ) }}</style>
+				
+
+				{% if craft.app.config.general.devMode %}
+					<link rel="preload" href="{{ (baseUrl ~ 'assets/css/styles.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+				{% else %}
+					<link rel="preload" href="{{ baseUrl }}assets/css/styles.min.{{staticAssetsVersion}}.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+				{% endif %}
+				<noscript><link rel="stylesheet" href="{{ baseUrl }}assets/css/styles.min.{{staticAssetsVersion}}.css"></noscript>
+
+				<script>
+					{# 
+            Might not need loadcss becuase csspreload was updated.
+						{{ source('_inline/js/loadcss.min.js') }} 
+          #}
+					{{ source('_inline/js/cssrelpreload.min.js') }}
+				</script>
+
+				{# <link rel="preload" href="" as="font" type="font/woff2" crossorigin> #}
+				<script>{{ source("_inline/js/fontfaceobserver.min.js") }}</script>
+				<script>{{ source("_inline/js/fonts.min.js") }}</script>
+				<script>{{ source("_inline/js/lazysizes.min.js") }}</script>
+
+				<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
+
+				<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+				<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+				<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+				<link rel="manifest" href="/favicons/manifest.json">
+				<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#ee1752">
+
+			{% endblock %}
+		</head>
+
+		<body class="{{bodyClass is defined and bodyClass is not empty ? bodyClass : ""}}">
+
+			{% block body %}{% endblock %}
+
+      {% if craft.app.config.general.devMode %}
+        <script src="/assets/js/bundle.js" defer></script>
+      {% else %}
+        <script src="/assets/js/bundle.{{staticAssetsVersion}}.js" defer></script>
+      {% endif %}
+
+			</body>
+		</html>

@@ -1,0 +1,28 @@
+{% extends '_layout/master' %}
+
+{% set override %}
+  {% block content %}{% endblock %}
+{% endset %}
+
+{% block body %}
+
+	{% block header %}
+		{% cache globally using key 'site-header' %}	
+		{% include '_layout/partials/header' %}
+		{% endcache %}
+	{% endblock %}
+
+  {% embed '_layout/partials/main' with { override: override } %}
+    {% block main %}
+      {{ override }}
+    {% endblock  %}
+  {% endembed  %}
+
+	{% block footer %}
+		{% cache globally using key 'site-footer' %}	
+    {% include '_layout/partials/footer' %}
+		{% endcache %}	
+	{% endblock %}
+
+{% endblock %}
+
